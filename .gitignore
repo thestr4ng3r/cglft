@@ -1,0 +1,8 @@
+
+*.swp
+*.o
+build/
+
+# CLion
+.idea
+
