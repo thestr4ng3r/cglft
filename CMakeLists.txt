@@ -6,6 +6,9 @@ option(BUILD_STATIC "Build static library instead of shared." OFF)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(TARGET cglft)
+set(CGLFT_VERSION 1.0)
+set(INCLUDE_INSTALL_DIR include/cglft)
+set(LIB_INSTALL_DIR lib)
 
 set(INCLUDE_FILES
 		font_face.h
@@ -41,7 +44,22 @@ target_link_libraries(${TARGET} ${OPENGL_LIBRARIES})
 
 install(TARGETS ${TARGET}
 		ARCHIVE DESTINATION lib
-		LIBRARY DESTINATION lib
-		INCLUDES DESTINATION include/cglft)
+		LIBRARY DESTINATION ${LIB_INSTALL_DIR}
+		INCLUDES DESTINATION ${INCLUDE_INSTALL_DIR})
 
-install(FILES ${INCLUDE_FILES} DESTINATION include/cglft)
+install(FILES ${INCLUDE_FILES} DESTINATION ${INCLUDE_INSTALL_DIR})
+
+
+
+
+# Config
+set(CGLFT_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR})
+set(CGLFT_LIBRARY_DIRS ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
+set(CGLFT_LIBRARIES ${TARGET})
+
+configure_file(cglftConfig.cmake.in
+		"${CMAKE_CURRENT_BINARY_DIR}/cglftConfig.cmake"
+		@ONLY ESCAPE_QUOTES)
+
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/cglftConfig.cmake"
+		DESTINATION ${LIB_INSTALL_DIR}/cmake/cglft)

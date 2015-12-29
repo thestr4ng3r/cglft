@@ -1,0 +1,19 @@
+#                                               -*- cmake -*-
+#
+#  cglftConfig.cmake(.in)
+#
+
+# Use the following variables to compile and link against cglft:
+#  CGLFT_FOUND          - True if cglft was found on your system
+#  CGLFT_INCLUDE_DIR    - cglft headers location
+#  CGLFT_LIBRARIES      - List of libraries to link against
+#  CGLFT_LIBRARY_DIRS   - List of directories containing cglft libraries
+#  CGLFT_ROOT_DIR       - The base directory of cglft
+#  CGLFT_VERSION_STRING - A human-readable string containing the version
+
+set(CGLFT_FOUND				1)
+set(CGLFT_INCLUDE_DIR		"@CGLFT_INCLUDE_DIR@")
+set(CGLFT_LIBRARIES			"@CGLFT_LIBRARIES@")
+set(CGLFT_LIBRARY_DIRS		"@CGLFT_LIBRARY_DIRS@")
+set(CGLFT_ROOT_DIR			"@CMAKE_INSTALL_PREFIX@")
+set(CGLFT_VERSION_STRING	"@CGLFT_VERSION@")
