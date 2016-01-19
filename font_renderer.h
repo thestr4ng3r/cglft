@@ -27,7 +27,9 @@
 #ifndef CGLFT_FONT_RENDERER_H
 #define CGLFT_FONT_RENDERER_H
 
+#ifndef CGLFT_DONT_INCLUDE_GL
 #include <GL/gl.h>
+#endif
 
 #include "font_face.h"
 
@@ -41,10 +43,12 @@ class ftFontRenderer
 		GLuint vao;
 
 	public:
+		enum Alignment { LEFT, CENTER, RIGHT };
+
 		ftFontRenderer(void);
 		~ftFontRenderer(void);
 
-		void RenderText(ftFontShader *shader, ftFontFace *face, const char *text, float x = 0.0f, float y = 0.0f, float scale_x = 1.0f, float scale_y = 1.0f);
+		void RenderText(ftFontShader *shader, ftFontFace *face, const char *text, float x = 0.0f, float y = 0.0f, float scale_x = 1.0f, float scale_y = 1.0f, Alignment align = LEFT);
 };
 
 

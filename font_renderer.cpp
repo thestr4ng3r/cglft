@@ -56,7 +56,7 @@ ftFontRenderer::~ftFontRenderer(void)
 	glDeleteBuffers(1, &uv_vbo);
 }
 
-void ftFontRenderer::RenderText(ftFontShader *shader, ftFontFace *face, const char *text, float x, float y, float scale_x, float scale_y)
+void ftFontRenderer::RenderText(ftFontShader *shader, ftFontFace *face, const char *text, float x, float y, float scale_x, float scale_y, Alignment align)
 {
 	unsigned int text_len = (unsigned int)strlen(text);
 
@@ -104,6 +104,19 @@ void ftFontRenderer::RenderText(ftFontShader *shader, ftFontFace *face, const ch
 		vertex_data_cur += 12;
 		uv_data_cur += 12;
 		render_chars++;
+	}
+
+
+	if(align == CENTER || align == RIGHT)
+	{
+		float offset;
+		if(align == CENTER)
+			offset = (pen_x - x * scale_x) / 2.0f;
+		else
+			offset = pen_x - x * scale_x;
+
+		for(unsigned int i=0; i<text_len*6; i++)
+			vertex_data[i*2] -= offset;
 	}
 
 
