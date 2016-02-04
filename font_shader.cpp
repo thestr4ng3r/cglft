@@ -24,8 +24,15 @@
  * @author Florian Märkl
  */
 
-#define GL_GLEXT_PROTOTYPES
+#ifdef _WIN32
+
+#include <GL/glew.h>
+
+#else
+
 #include <GL/gl.h>
+
+#endif
 
 #include <string.h>
 #include <stdio.h>
@@ -64,7 +71,7 @@ const char *fragment_src = "#version 330\n"
 
 
 
-void PrintGLInfoLog(const char *log_title, GLuint handle, const char *shader_name = 0)
+void PrintGLInfoLog_(const char *log_title, GLuint handle, const char *shader_name = 0)
 {
 	GLchar *string;
 	GLint size;
@@ -92,13 +99,13 @@ ftDefaultFontShader::ftDefaultFontShader(void)
 	len = (GLint)strlen(vertex_src);
 	glShaderSource(vertex_shader, 1, &vertex_src, &len);
 	glCompileShader(vertex_shader);
-	PrintGLInfoLog("Compile", vertex_shader, "Font Vertex Shader");
+	PrintGLInfoLog_("Compile", vertex_shader, "Font Vertex Shader");
 
 	fragment_shader = glCreateShader(GL_FRAGMENT_SHADER);
 	len = (GLint)strlen(fragment_src);
 	glShaderSource(fragment_shader, 1, &fragment_src, &len);
 	glCompileShader(fragment_shader);
-	PrintGLInfoLog("Compile", fragment_shader, "Font Fragment Shader");
+	PrintGLInfoLog_("Compile", fragment_shader, "Font Fragment Shader");
 
 	program = glCreateProgram();
 	glAttachShader(program, vertex_shader);

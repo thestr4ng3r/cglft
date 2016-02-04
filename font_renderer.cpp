@@ -24,8 +24,15 @@
  * @author Florian Märkl
  */
 
-#define GL_GLEXT_PROTOTYPES
+#ifdef _WIN32
+
+#include <GL/glew.h>
+
+#else
+
 #include <GL/gl.h>
+
+#endif
 
 #include "font_shader.h"
 #include "font_renderer.h"

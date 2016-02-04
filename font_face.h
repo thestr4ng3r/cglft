@@ -30,7 +30,16 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#ifdef _WIN32
+
+#include <GL/glew.h>
+
+#else
+
 #include <GL/gl.h>
+
+#endif
+
 
 #include <map>
 

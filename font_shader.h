@@ -28,7 +28,15 @@
 #define CGLFT_FONT_SHADER_H
 
 #ifndef CGLFT_DONT_INCLUDE_GL
+#ifdef _WIN32
+
+#include <GL/glew.h>
+
+#else
+
 #include <GL/gl.h>
+
+#endif
 #endif
 
 #include "font_face.h"
