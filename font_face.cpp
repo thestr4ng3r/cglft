@@ -38,7 +38,7 @@ ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 	unsigned int max_height = 0;
 	unsigned int char_count = 0;
 
-	for(unsigned int c=0; c<128; c++)
+	for(unsigned int c=0; c<256; c++)
 	{
 		FT_UInt char_index = FT_Get_Char_Index(ft_face, c);
 		if(!char_index)
@@ -75,7 +75,7 @@ ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 	memset(atlas_data, 0, atlas_size);
 
 	unsigned int ci = 0;
-	for(unsigned int c=0; c<128; c++)
+	for(unsigned int c=0; c<256; c++)
 	{
 		FT_UInt char_index = FT_Get_Char_Index(ft_face, c);
 		if(!char_index)

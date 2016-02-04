@@ -84,7 +84,7 @@ void ftFontRenderer::RenderText(ftFontShader *shader, ftFontFace *face, const ch
 	for(unsigned int i=0; i<text_len; i++)
 	{
 		char c = text[i];
-		ftGlyph *glyph = face->GetGlyph(c);
+		ftGlyph *glyph = face->GetGlyph((unsigned int)((unsigned char)c));
 		if(!glyph)
 			continue;
 
