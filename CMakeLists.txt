@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.1)
 project(cglft)
 
-option(BUILD_STATIC "Build static library instead of shared." OFF)
+option(CGLFT_BUILD_STATIC "Build static library instead of shared." OFF)
+
+set(CMAKE_CXX_STANDARD 11)
+
 
 # the following if-clause was copied from BulletPhysics' CMakeLists.txt
 IF(MSVC)
@@ -53,8 +56,6 @@ IF(MSVC)
   ENDIF()
 ENDIF(MSVC)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
-
 set(TARGET cglft)
 set(CGLFT_VERSION 1.0)
 set(INCLUDE_INSTALL_DIR include/cglft)
@@ -74,7 +75,7 @@ set(SOURCE_FILES
 
 
 
-if(BUILD_STATIC)
+if(CGLFT_BUILD_STATIC)
 	add_library(${TARGET} STATIC ${SOURCE_FILES})
 else()
 	add_library(${TARGET} SHARED ${SOURCE_FILES})
@@ -108,9 +109,9 @@ set(CGLFT_INCLUDE_DIR ${CMAKE_INSTALL_PREFIX}/${INCLUDE_INSTALL_DIR})
 set(CGLFT_LIBRARY_DIRS ${CMAKE_INSTALL_PREFIX}/${LIB_INSTALL_DIR})
 set(CGLFT_LIBRARIES ${TARGET})
 
-configure_file(cglftConfig.cmake.in
-		"${CMAKE_CURRENT_BINARY_DIR}/cglftConfig.cmake"
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/cglft-config.cmake.in"
+		"${CMAKE_CURRENT_BINARY_DIR}/cglft-config.cmake"
 		@ONLY ESCAPE_QUOTES)
 
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/cglftConfig.cmake"
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/cglft-config.cmake"
 		DESTINATION ${LIB_INSTALL_DIR}/cmake/cglft)
