@@ -27,6 +27,8 @@
 #ifndef CGLFT_FONT_SHADER_H
 #define CGLFT_FONT_SHADER_H
 
+#include "cglft_export.h"
+
 #ifndef CGLFT_DONT_INCLUDE_GL
 #ifdef _WIN32
 
@@ -41,7 +43,7 @@
 
 #include "font_face.h"
 
-class ftFontShader
+class CGLFT_EXPORT ftFontShader
 {
 	public:
 		static const int vertex_attribute = 0;
@@ -51,7 +53,7 @@ class ftFontShader
 		virtual void SetFontFace(ftFontFace *face) =0;
 };
 
-class ftDefaultFontShader : public ftFontShader
+class CGLFT_EXPORT ftDefaultFontShader : public ftFontShader
 {
 	private:
 		GLuint vertex_shader;

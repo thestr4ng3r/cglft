@@ -27,6 +27,8 @@
 #ifndef CGLFT_FONT_FACE_H
 #define CGLFT_FONT_FACE_H
 
+#include "cglft_export.h"
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -46,10 +48,10 @@
 #include "glyph.h"
 
 
-class ftFontFace
+class CGLFT_EXPORT ftFontFace
 {
 	private:
-		std::map<unsigned int, ftGlyph> glyphs;
+		std::map<unsigned int, ftGlyph> *glyphs;
 
 		unsigned int atlas_width, atlas_height;
 		unsigned char *atlas_data;

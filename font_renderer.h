@@ -27,6 +27,8 @@
 #ifndef CGLFT_FONT_RENDERER_H
 #define CGLFT_FONT_RENDERER_H
 
+#include "cglft_export.h"
+
 #ifndef CGLFT_DONT_INCLUDE_GL
 #ifdef _WIN32
 
@@ -41,7 +43,7 @@
 
 #include "font_face.h"
 
-class ftFontRenderer
+class CGLFT_EXPORT ftFontRenderer
 {
 	private:
 		ftFontShader *shader;

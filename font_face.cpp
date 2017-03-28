@@ -32,6 +32,8 @@ using namespace std;
 
 ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 {
+	glyphs = new map<unsigned int, ftGlyph>();
+
 	FT_Set_Pixel_Sizes(ft_face, 0, size);
 
 	unsigned int max_width = 0;
@@ -74,6 +76,8 @@ ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 	atlas_data = new unsigned char[atlas_size];
 	memset(atlas_data, 0, atlas_size);
 
+	std::map<unsigned int, ftGlyph> &glyphs_map = *glyphs;
+
 	unsigned int ci = 0;
 	for(unsigned int c=0; c<256; c++)
 	{
@@ -84,7 +88,7 @@ ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 		if(FT_Load_Glyph(ft_face, char_index, FT_LOAD_RENDER))
 			continue;
 
-		ftGlyph &glyph = glyphs[c];
+		ftGlyph &glyph = glyphs_map[c];
 		FT_GlyphSlot ft_glyph = ft_face->glyph;
 
 		glyph.atlas_x = (ci % columns) * max_width;
@@ -96,7 +100,7 @@ ftFontFace::ftFontFace(FT_Face ft_face, unsigned int size)
 		glyph.advance_x = (int)(ft_glyph->advance.x >> 6); // division by 64
 		glyph.advance_y = (int)(ft_glyph->advance.y >> 6);
 
-		for (int y = 0; y < glyph.height; y++)
+		for (unsigned int y = 0; y < glyph.height; y++)
 		{
 			unsigned int dst = (glyph.atlas_y + y) * atlas_width + glyph.atlas_x;
 			memcpy(atlas_data + dst, ft_glyph->bitmap.buffer + ft_glyph->bitmap.width * y, glyph.width);
@@ -133,9 +137,9 @@ void ftFontFace::CreateGLTexture(void)
 
 ftGlyph *ftFontFace::GetGlyph(unsigned int character)
 {
-	map<unsigned int, ftGlyph>::iterator i = glyphs.find(character);
+	map<unsigned int, ftGlyph>::iterator i = glyphs->find(character);
 
-	if(i == glyphs.end())
+	if(i == glyphs->end())
 		return 0;
 
 	return &(i->second);

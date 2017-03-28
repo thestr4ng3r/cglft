@@ -73,13 +73,21 @@ set(SOURCE_FILES
 		font_renderer.cpp)
 
 
-
 if(BUILD_STATIC)
-	add_library(${TARGET} STATIC ${SOURCE_FILES})
+	set(LIB_TYPE STATIC)
 else()
-	add_library(${TARGET} SHARED ${SOURCE_FILES})
+	set(LIB_TYPE SHARED)
 endif()
 
+
+add_library(${TARGET} ${LIB_TYPE} ${SOURCE_FILES})
+
+
+if(WIN32) #	AND NOT BUILD_STATIC)
+	include(GenerateExportHeader)
+	generate_export_header(${TARGET})
+	include_directories(${PROJECT_BINARY_DIR})
+endif()
 
 
 find_package(Freetype REQUIRED)
@@ -101,6 +109,10 @@ install(TARGETS ${TARGET}
 		INCLUDES DESTINATION ${INCLUDE_INSTALL_DIR})
 
 install(FILES ${INCLUDE_FILES} DESTINATION ${INCLUDE_INSTALL_DIR})
+
+if(WIN32) # AND NOT BUILD_STATIC)
+	install(FILES ${PROJECT_BINARY_DIR}/${TARGET}_export.h DESTINATION ${INCLUDE_INSTALL_DIR})
+endif()
 
 
 # Config
