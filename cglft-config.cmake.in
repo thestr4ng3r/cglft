@@ -11,8 +11,10 @@
 #  CGLFT_ROOT_DIR       - The base directory of cglft
 #  CGLFT_VERSION_STRING - A human-readable string containing the version
 
+include("${CMAKE_CURRENT_LIST_DIR}/cglft-target.cmake")
+
 set(CGLFT_FOUND				1)
-set(CGLFT_INCLUDE_DIR		"@CGLFT_INCLUDE_DIR@")
+set(CGLFT_INCLUDE_DIRS		"@CGLFT_INCLUDE_DIRS@")
 set(CGLFT_LIBRARIES			"@CGLFT_LIBRARIES@")
 set(CGLFT_LIBRARY_DIRS		"@CGLFT_LIBRARY_DIRS@")
 set(CGLFT_ROOT_DIR			"@CMAKE_INSTALL_PREFIX@")
