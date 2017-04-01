@@ -34,11 +34,9 @@ endif()
 add_library(${TARGET} ${LIB_TYPE} ${SOURCE_FILES})
 
 
-if(WIN32) #	AND NOT BUILD_STATIC)
-	include(GenerateExportHeader)
-	generate_export_header(${TARGET})
-	include_directories(${PROJECT_BINARY_DIR})
-endif()
+include(GenerateExportHeader)
+generate_export_header(${TARGET})
+include_directories(${PROJECT_BINARY_DIR})
 
 
 find_package(Freetype REQUIRED)
@@ -61,10 +59,7 @@ install(TARGETS ${TARGET} EXPORT cglft-target
 install(EXPORT cglft-target DESTINATION ${LIB_INSTALL_DIR}/cmake/cglft)
 
 install(FILES ${INCLUDE_FILES} DESTINATION ${INCLUDE_INSTALL_DIR})
-
-if(WIN32) # AND NOT BUILD_STATIC)
-	install(FILES ${PROJECT_BINARY_DIR}/${TARGET}_export.h DESTINATION ${INCLUDE_INSTALL_DIR})
-endif()
+install(FILES ${PROJECT_BINARY_DIR}/${TARGET}_export.h DESTINATION ${INCLUDE_INSTALL_DIR})
 
 
 # Config
