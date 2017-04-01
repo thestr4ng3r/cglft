@@ -1,0 +1,19 @@
+dist: trusty
+sudo: required
+language: cpp
+compiler:
+- gcc
+
+before_install:
+- sudo apt-get update -qq
+- sudo apt-get install -y libfreetype6-dev libgl1-mesa-dev libglew-dev
+- sudo apt-get remove -y cmake
+- wget https://cmake.org/files/v3.7/cmake-3.7.2-Linux-x86_64.tar.gz -O /tmp/cmake-3.7.2-Linux-x86_64.tar.gz
+- sudo tar -xvf /tmp/cmake-3.7.2-Linux-x86_64.tar.gz -C /tmp
+- sudo cp -RT /tmp/cmake-3.7.2-Linux-x86_64 /usr
+
+script:
+- mkdir build
+- cd build
+- cmake -DCMAKE_BUILD_TYPE=Release ..
+- make -j4
